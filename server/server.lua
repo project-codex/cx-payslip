@@ -5,7 +5,7 @@ local function afterTaxes(amount)
 end
 
 local function payslip(cid)
-    return exports.oxmysql:scalarSync('SELECT payslip FROM players WHERE citizenid = ?', {
+    return MySQL.Sync.fetchScalar('SELECT payslip FROM players WHERE citizenid = ?', {
         cid
     })
 end
@@ -18,7 +18,7 @@ AddEventHandler('7rp-payslip:server:receive', function()
     local playerPayslip = payslip(cid)
 
     if playerPayslip > 0 then
-        exports.oxmysql:fetchSync("UPDATE players SET payslip=payslip-? WHERE citizenid=?;", {
+        MySQL.Async.execute("UPDATE players SET payslip=payslip-? WHERE citizenid=?;", {
             playerPayslip,
             cid
         })
@@ -29,16 +29,6 @@ AddEventHandler('7rp-payslip:server:receive', function()
     end
 end)
 
-RegisterServerEvent("7rp-payslip:server:addMoney")
-AddEventHandler("7rp-payslip:server:addMoney", function(cid, amount)
-    local playerPayslip = afterTaxes(amount)
-
-    exports.oxmysql:fetchSync("UPDATE players SET payslip=payslip+? WHERE citizenid=?;", {
-        playerPayslip,
-        cid,
-    })
-end)
-
 RegisterServerEvent("7rp-payslip:server:checkPayslip")
 AddEventHandler("7rp-payslip:server:checkPayslip", function()
     local src = source
@@ -47,4 +37,13 @@ AddEventHandler("7rp-payslip:server:checkPayslip", function()
     local playerPayslip = payslip(cid)
 
     TriggerClientEvent('DoLongHudText', src, 'You have ' .. playerPayslip .. '$ in payslip', 1)
+end)
+
+exports('AddMoney', function(cid, amount)
+    local playerPayslip = afterTaxes(amount)
+
+    MySQL.Async.execute("UPDATE players SET payslip=payslip+? WHERE citizenid=?;", {
+        playerPayslip,
+        cid,
+    })
 end)

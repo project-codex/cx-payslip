@@ -1,3 +1,4 @@
-# Installation
+# How to use
 
-Replace `QBCore.Functions.AddMoney()` with `TriggerEvent("7rp-payslip:server:addMoney, cid, amount")`
+Replace: `Player.Functions.AddMoney(type, amount)` to `exports['7rp-payslip']:AddMoney(cid, amount)`
+
