@@ -5,7 +5,7 @@ local function afterTaxes(amount)
 end
 
 local function payslip(cid)
-    return MySQL.query.await('SELECT payslip FROM players WHERE citizenid = ?', {
+    return MySQL.scalar.await('SELECT payslip FROM players WHERE citizenid = ?', {
         cid
     })
 end
