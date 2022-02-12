@@ -5,7 +5,7 @@ local function afterTaxes(amount)
 end
 
 local function payslip(cid)
-    return MySQL.Sync.fetchScalar('SELECT payslip FROM players WHERE citizenid = ?', {
+    return MySQL.scalar.await('SELECT payslip FROM players WHERE citizenid = ?', {
         cid
     })
 end
@@ -18,7 +18,7 @@ AddEventHandler('7rp-payslip:server:receive', function()
     local playerPayslip = payslip(cid)
 
     if playerPayslip > 0 then
-        MySQL.Async.execute("UPDATE players SET payslip=payslip-? WHERE citizenid=?;", {
+        MySQL.update("UPDATE players SET payslip=payslip-? WHERE citizenid=?;", {
             playerPayslip,
             cid
         })
@@ -42,7 +42,7 @@ end)
 exports('AddMoney', function(cid, amount)
     local playerPayslip = afterTaxes(amount)
 
-    MySQL.Async.execute("UPDATE players SET payslip=payslip+? WHERE citizenid=?;", {
+    MySQL.update("UPDATE players SET payslip=payslip+? WHERE citizenid=?;", {
         playerPayslip,
         cid,
     })
