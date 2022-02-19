@@ -12,7 +12,6 @@ end
 
 RegisterServerEvent('cx-payslip:server:receive')
 AddEventHandler('cx-payslip:server:receive', function()
-    print('xd')
     local src = source
     local player = QBCore.Functions.GetPlayer(src)
     local cid = player.PlayerData.citizenid
@@ -32,7 +31,6 @@ end)
 
 RegisterServerEvent("cx-payslip:server:checkPayslip")
 AddEventHandler("cx-payslip:server:checkPayslip", function()
-    print('xd2')
     local src = source
     local player = QBCore.Functions.GetPlayer(src)
     local cid = player.PlayerData.citizenid
