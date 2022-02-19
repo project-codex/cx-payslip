@@ -10,8 +10,9 @@ local function payslip(cid)
     })
 end
 
-RegisterServerEvent('7rp-payslip:server:receive')
-AddEventHandler('7rp-payslip:server:receive', function()
+RegisterServerEvent('cx-payslip:server:receive')
+AddEventHandler('cx-payslip:server:receive', function()
+    print('xd')
     local src = source
     local player = QBCore.Functions.GetPlayer(src)
     local cid = player.PlayerData.citizenid
@@ -23,20 +24,21 @@ AddEventHandler('7rp-payslip:server:receive', function()
             cid
         })
         player.Functions.AddMoney('cash', playerPayslip)
-        TriggerClientEvent('QBCore:Notify', src, 'You received your payslip with amount ' .. playerPayslip .. '$')
+        TriggerClientEvent('QBCore:Notify', src, 'You received ' .. playerPayslip)
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Your payslip is empty...', 'error')
+        TriggerClientEvent('QBCore:Notify', src, 'Your payslip is empty', 'error')
     end
 end)
 
-RegisterServerEvent("7rp-payslip:server:checkPayslip")
-AddEventHandler("7rp-payslip:server:checkPayslip", function()
+RegisterServerEvent("cx-payslip:server:checkPayslip")
+AddEventHandler("cx-payslip:server:checkPayslip", function()
+    print('xd2')
     local src = source
     local player = QBCore.Functions.GetPlayer(src)
     local cid = player.PlayerData.citizenid
     local playerPayslip = payslip(cid)
 
-    TriggerClientEvent('QBCore:Notify', src, 'You have ' .. playerPayslip .. '$ in payslip')
+    TriggerClientEvent('QBCore:Notify', src, "Your payslip's balance is " .. playerPayslip)
 end)
 
 exports('AddMoney', function(cid, amount)
