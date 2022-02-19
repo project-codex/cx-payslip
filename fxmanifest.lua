@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 version '2.0'
-author = 'choxen'
+author 'choxen'
 
 client_scripts {
     '@PolyZone/client.lua',
