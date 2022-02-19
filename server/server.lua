@@ -39,11 +39,16 @@ AddEventHandler("cx-payslip:server:checkPayslip", function()
     TriggerClientEvent('QBCore:Notify', src, "Your payslip's balance is $" .. playerPayslip)
 end)
 
-exports('AddMoney', function(cid, amount)
+exports('AddMoney', function(cid, amount, notification)
     local playerPayslip = afterTaxes(amount)
+    local src = QBCore.Functions.GetPlayerByCitizenId(cid).PlayerData.source
 
     MySQL.update("UPDATE players SET payslip=payslip+? WHERE citizenid=?;", {
         playerPayslip,
         cid,
     })
+
+    if notification and src then
+        TriggerClientEvent('QBCore:Notify', src, notification)
+    end
 end)
