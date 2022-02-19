@@ -1,2 +1,1 @@
-ALTER TABLE players
-ADD payslip int(255) DEFAULT 0;
+ALTER TABLE players ADD payslip int(255) DEFAULT 0;
