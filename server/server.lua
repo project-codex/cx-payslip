@@ -23,9 +23,9 @@ AddEventHandler('7rp-payslip:server:receive', function()
             cid
         })
         player.Functions.AddMoney('cash', playerPayslip)
-        TriggerClientEvent('DoLongHudText', src, 'You received your payslip with amount ' .. playerPayslip .. '$', 1)
+        TriggerClientEvent('QBCore:Notify', src, 'You received your payslip with amount ' .. playerPayslip .. '$')
     else
-        TriggerClientEvent('DoLongHudText', src, 'Your payslip is empty...', 2)
+        TriggerClientEvent('QBCore:Notify', src, 'Your payslip is empty...', 'error')
     end
 end)
 
@@ -36,7 +36,7 @@ AddEventHandler("7rp-payslip:server:checkPayslip", function()
     local cid = player.PlayerData.citizenid
     local playerPayslip = payslip(cid)
 
-    TriggerClientEvent('DoLongHudText', src, 'You have ' .. playerPayslip .. '$ in payslip', 1)
+    TriggerClientEvent('QBCore:Notify', src, 'You have ' .. playerPayslip .. '$ in payslip')
 end)
 
 exports('AddMoney', function(cid, amount)
