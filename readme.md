@@ -17,4 +17,4 @@
 
 ## How to use
 
-Replace `Player.Functions.AddMoney(type, amount)` with `exports['7rp-payslip']:AddMoney(cid, amount)`
+Replace `Player.Functions.AddMoney(type, amount)` with `exports['cx-payslip']:AddMoney(cid, amount)`
